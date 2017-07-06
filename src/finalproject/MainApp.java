@@ -28,11 +28,15 @@ public class MainApp {
         creatingArrays.add(new CreateRandomArray());
 
         for (SortingArray sortingArray : sortingArrays) {
+            System.out.printf("%20s",sortingArray.getClass().getSimpleName());
+            System.out.println();
             for (CreatingArray creatingArray : creatingArrays) {
+                System.out.printf("%-20s", creatingArray.getClass().getSimpleName());
                 before = System.nanoTime();
                 sortingArray.sort(creatingArray.create(10000));
                 after = System.nanoTime();
-                System.out.printf("%-9d",(after - before)/1000);
+                System.out.printf("%-15d",(after - before)/1000);
+                System.out.println();
             }
             System.out.println();
         }
