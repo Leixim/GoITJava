@@ -1,26 +1,41 @@
 package finalproject;
 
+import finalproject.createmethods.CreateMaxToMinArray;
+import finalproject.createmethods.CreateMinToMaxArray;
+import finalproject.createmethods.CreateMinToMaxPlus;
+import finalproject.createmethods.CreateRandomArray;
+import finalproject.sortingmethods.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainApp {
     public static void main(String[] args) throws IOException {
+        long before, after;
+        List<SortingArray> sortingArrays = new ArrayList<>();
+        sortingArrays.add( new BubbleSortUp());
+        sortingArrays.add( new BubbleSortDown());
+        sortingArrays.add( new NativeArraySort());
+        sortingArrays.add( new MergeSort());
+        sortingArrays.add( new SelectionSort());
 
-        ArrayList<int[]> arrayListCreate = new ArrayList<>();
-        arrayListCreate.add(MethodsCreateArray.createArrayOfRandomInt());
-        arrayListCreate.add(MethodsCreateArray.createArrayOfSortedMaxToMinInt());
-        arrayListCreate.add(MethodsCreateArray.createArrayOfSortedMinToMaxInt());
-        arrayListCreate.add(MethodsCreateArray.createArrayOfSortedMinToMaxIntPlusX());
+        List<CreatingArray> creatingArrays = new ArrayList<>();
+        creatingArrays.add(new CreateMinToMaxArray());
+        creatingArrays.add(new CreateMaxToMinArray());
+        creatingArrays.add(new CreateMinToMaxPlus());
+        creatingArrays.add(new CreateRandomArray());
 
-        for (int i = 0; i < 5; i++) {
-
-            for (int[] ints : arrayListCreate) {
-                SortingArrays.sort(ints, i);
+        for (SortingArray sortingArray : sortingArrays) {
+            for (CreatingArray creatingArray : creatingArrays) {
+                before = System.nanoTime();
+                sortingArray.sort(creatingArray.create(10000));
+                after = System.nanoTime();
+                System.out.printf("%-9d",(after - before)/1000);
             }
             System.out.println();
         }
-
-
 
     }
 
